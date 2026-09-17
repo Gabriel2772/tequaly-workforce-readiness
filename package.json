@@ -1,0 +1,15 @@
+{
+  "name": "tequaly-workforce-readiness",
+  "private": true,
+  "packageManager": "pnpm@11.16.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build": "pnpm --filter frontend build",
+    "dev": "pnpm --filter frontend dev",
+    "lint": "pnpm --filter frontend lint",
+    "test": "pnpm --filter frontend test",
+    "typecheck": "pnpm --filter frontend typecheck"
+  }
+}

@@ -1,0 +1,39 @@
+.worktrees/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+backend/.local/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
+htmlcov/
+
+# JavaScript
+node_modules/
+.next/
+coverage/
+frontend/.e2e/
+frontend/.visual/
+frontend/playwright-report/
+frontend/test-results/
+outputs/
+*.tsbuildinfo
+
+# Local tooling
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+
+# Local offline delivery and generated files
+.runtime/
+logs/
+TEQUALY_WORKFORCE_READINESS.zip
