@@ -2,6 +2,8 @@
 
 Aplicação auditável para cadastrar força de trabalho, avaliar prontidão e montar equipes operacionais com regras determinísticas e OR-Tools CP-SAT. O produto não contém chat interno, execução de modelos ou integração com provedores de IA e não solicita chaves OpenAI ou Anthropic.
 
+![Tela inicial do Tequaly Workforce Readiness em ambiente de demonstração](docs/images/dashboard-overview.png)
+
 ## Escopo demonstrável
 
 O seed principal usa 2.200 colaboradores; o benchmark usa 3.000. O catálogo sintético contém 12 famílias, 90 cargos canônicos, 130 aliases, 72 qualificações, 24 autorizações, 24 treinamentos e 8 operações. Esses números são hipóteses de demonstração, não dados oficiais da Tequaly. A integração produtiva ainda exige fontes governadas, mapeamento, validação de regras, LGPD e aceite de RH/operações.
