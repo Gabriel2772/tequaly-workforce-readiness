@@ -27,7 +27,7 @@ class AuthenticatedActor:
 def _unauthorized() -> HTTPException:
     return HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail={"code": "authentication_required", "message": "Autentica��o necess�ria."},
+        detail={"code": "authentication_required", "message": "Autenticação necessária."},
         headers={"WWW-Authenticate": "Bearer"},
     )
 
@@ -111,7 +111,7 @@ def require_read_actor(request: Request) -> str:
         {"viewer", "planner", "admin"},
         demo_default_role="viewer",
         forbidden_code="read_forbidden",
-        forbidden_message="O perfil atual n�o pode consultar estes dados.",
+        forbidden_message="O perfil atual não pode consultar estes dados.",
     )
 
 
@@ -121,7 +121,7 @@ def require_write_actor(request: Request) -> str:
         {"planner", "admin"},
         demo_default_role="planner",
         forbidden_code="write_forbidden",
-        forbidden_message="O perfil atual n�o pode modificar dados operacionais.",
+        forbidden_message="O perfil atual não pode modificar dados operacionais.",
     )
 
 
@@ -131,5 +131,5 @@ def require_admin_actor(request: Request) -> str:
         {"admin"},
         demo_default_role="viewer",
         forbidden_code="admin_forbidden",
-        forbidden_message="Esta a��o exige perfil administrador.",
+        forbidden_message="Esta ação exige perfil administrador.",
     )

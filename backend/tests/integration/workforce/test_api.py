@@ -59,7 +59,7 @@ def test_employee_profile_preserves_the_canonical_shape() -> None:
         "nome",
         "qualificacoes",
     ]
-    assert response.json()["nome"].startswith("Colaborador Sint�tico ")
+    assert response.json()["nome"].startswith("Colaborador Sintético ")
 
 
 def test_unknown_employee_profile_returns_404() -> None:

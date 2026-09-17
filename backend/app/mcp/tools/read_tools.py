@@ -87,14 +87,14 @@ def build_read_registry() -> ToolRegistry:
         [
             ToolDefinition(
                 "get_readiness_overview",
-                "Indicadores executivos de prontid�o.",
+                "Indicadores executivos de prontidão.",
                 HorizonInput,
                 "read",
                 _dashboard,
             ),
             ToolDefinition(
                 "get_operation",
-                "Opera��o, demandas e requisitos por ID.",
+                "Operação, demandas e requisitos por ID.",
                 OperationInput,
                 "read",
                 _operation,
@@ -108,14 +108,14 @@ def build_read_registry() -> ToolRegistry:
             ),
             ToolDefinition(
                 "get_operational_fragility",
-                "Cobertura e fragilidade explic�vel.",
+                "Cobertura e fragilidade explicável.",
                 HorizonInput,
                 "read",
                 _fragility,
             ),
             ToolDefinition(
                 "get_decision_run",
-                "Cen�rio calculado e evid�ncias por ID.",
+                "Cenário calculado e evidências por ID.",
                 DecisionInput,
                 "read",
                 _decision,

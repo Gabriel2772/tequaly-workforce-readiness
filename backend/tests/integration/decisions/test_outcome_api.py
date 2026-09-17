@@ -36,8 +36,8 @@ def test_outcome_api_compares_actuals_and_preserves_original_assignment() -> Non
         )
         qualification = workforce_models.Qualification(
             code="OUT-QLF",
-            name="Qualifica��o de resultado",
-            category="seguran�a",
+            name="Qualificação de resultado",
+            category="segurança",
             active=True,
         )
         session.add_all((role, qualification))
@@ -60,7 +60,7 @@ def test_outcome_api_compares_actuals_and_preserves_original_assignment() -> Non
         )
         operation = operation_models.Operation(
             code="OUT-OPS",
-            name="Opera��o realizada",
+            name="Operação realizada",
             client_name="Cliente",
             base_location="Curitiba",
             starts_at=datetime(2030, 4, 1, tzinfo=UTC),
@@ -125,7 +125,7 @@ def test_outcome_api_compares_actuals_and_preserves_original_assignment() -> Non
             decision_run_id=run.id,
             operation_id=operation.id,
             actor_id="planner@example.com",
-            note="Cen�rio aprovado",
+            note="Cenário aprovado",
             selected_at=datetime(2030, 1, 2, tzinfo=UTC),
         )
         session.add_all((assignment, training, selection))

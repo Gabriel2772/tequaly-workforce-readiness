@@ -25,21 +25,21 @@ def test_optimize_persists_scenario_and_lists_it_for_comparison() -> None:
     ends_at = datetime(2026, 10, 3, tzinfo=UTC)
 
     with Session(engine) as session:
-        family = workforce_models.RoleFamily(code="FAM-OPT", name="Fam�lia Otimiza��o")
+        family = workforce_models.RoleFamily(code="FAM-OPT", name="Família Otimização")
         session.add(family)
         session.flush()
         role = workforce_models.Role(
             family_id=family.id,
             code="ROLE-OPT",
-            name="Montador de Otimiza��o",
+            name="Montador de Otimização",
             active=True,
         )
         session.add(role)
         session.flush()
         operation = operation_models.Operation(
             code="OPS-OPT-001",
-            name="Opera��o Otimiza��o",
-            client_name="Cliente Otimiza��o",
+            name="Operação Otimização",
+            client_name="Cliente Otimização",
             base_location="Curitiba",
             starts_at=starts_at,
             ends_at=ends_at,
@@ -58,7 +58,7 @@ def test_optimize_persists_scenario_and_lists_it_for_comparison() -> None:
         )
         cheap = workforce_models.Employee(
             employee_number="OPT-001",
-            name="Pessoa Econ�mica",
+            name="Pessoa Econômica",
             canonical_role_id=role.id,
             base_location="Curitiba",
             seniority_level="pleno",

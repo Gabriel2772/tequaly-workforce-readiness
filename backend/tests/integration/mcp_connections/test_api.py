@@ -76,7 +76,7 @@ def _payload(**overrides: Any) -> dict[str, Any]:
         "client_type": "claude",
         "endpoint_url": "https://MCP.EXAMPLE.COM:443/mcp?workspace=south",
         "transport": "streamable_http",
-        "notes": "Configura��o sem credenciais",
+        "notes": "Configuração sem credenciais",
         "enabled": True,
     }
     payload.update(overrides)
@@ -104,10 +104,10 @@ def test_connection_crud_is_scoped_to_the_authenticated_owner() -> None:
 
         updated = alice.patch(
             f"/mcp-connections/{connection_id}",
-            json={"name": "MCP Produ��o", "enabled": False},
+            json={"name": "MCP Produção", "enabled": False},
         )
         assert updated.status_code == 200
-        assert updated.json()["name"] == "MCP Produ��o"
+        assert updated.json()["name"] == "MCP Produção"
         assert updated.json()["enabled"] is False
 
         validated = alice.post(f"/mcp-connections/{connection_id}/validate")
@@ -247,7 +247,7 @@ def test_update_invalidates_only_connectivity_changes() -> None:
 
         metadata_update = alice.patch(
             f"/mcp-connections/{connection_id}",
-            json={"name": "MCP Produ��o", "notes": "Nota p�blica", "enabled": False},
+            json={"name": "MCP Produção", "notes": "Nota pública", "enabled": False},
         )
 
         assert metadata_update.status_code == 200

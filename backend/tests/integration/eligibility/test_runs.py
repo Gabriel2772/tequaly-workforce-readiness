@@ -48,27 +48,27 @@ def test_run_persists_results_and_never_evaluates_incompatible_roles() -> None:
     deadline = datetime(2026, 9, 20, tzinfo=UTC)
 
     with Session(engine) as session:
-        family = workforce_models.RoleFamily(code="FAM-ELG", name="Fam�lia Elegibilidade")
+        family = workforce_models.RoleFamily(code="FAM-ELG", name="Família Elegibilidade")
         session.add(family)
         session.flush()
         primary_role = workforce_models.Role(
             family_id=family.id, code="ROLE-ELG-1", name="Montador", active=True
         )
         compatible_role = workforce_models.Role(
-            family_id=family.id, code="ROLE-ELG-2", name="Montador S�nior", active=True
+            family_id=family.id, code="ROLE-ELG-2", name="Montador Sênior", active=True
         )
         incompatible_role = workforce_models.Role(
             family_id=family.id, code="ROLE-ELG-3", name="Analista", active=True
         )
         qualification = workforce_models.Qualification(
-            code="QLF-ELG", name="NR-35", category="seguran�a", active=True
+            code="QLF-ELG", name="NR-35", category="segurança", active=True
         )
         session.add_all((primary_role, compatible_role, incompatible_role, qualification))
         session.flush()
 
         operation = operation_models.Operation(
             code="OPS-ELG-001",
-            name="Opera��o Elegibilidade",
+            name="Operação Elegibilidade",
             client_name="Cliente Teste",
             base_location="Curitiba",
             starts_at=operation_start,
@@ -99,7 +99,7 @@ def test_run_persists_results_and_never_evaluates_incompatible_roles() -> None:
             operation_id=operation.id,
             role_demand_id=demand.id,
             code="REQ-ELG-001",
-            name="NR-35 v�lida",
+            name="NR-35 válida",
             requirement_type="qualification",
             mandatory=True,
             payload={},
@@ -117,7 +117,7 @@ def test_run_persists_results_and_never_evaluates_incompatible_roles() -> None:
 
         eligible = workforce_models.Employee(
             employee_number="ELG-001",
-            name="Pessoa Eleg�vel",
+            name="Pessoa Elegível",
             canonical_role_id=primary_role.id,
             base_location="Curitiba",
             seniority_level="pleno",
@@ -126,16 +126,16 @@ def test_run_persists_results_and_never_evaluates_incompatible_roles() -> None:
         )
         trainable = workforce_models.Employee(
             employee_number="ELG-002",
-            name="Pessoa Trein�vel",
+            name="Pessoa Treinável",
             canonical_role_id=compatible_role.id,
             base_location="Curitiba",
-            seniority_level="j�nior",
+            seniority_level="júnior",
             hired_on=date(2024, 1, 1),
             active=True,
         )
         unavailable = workforce_models.Employee(
             employee_number="ELG-003",
-            name="Pessoa Indispon�vel",
+            name="Pessoa Indisponível",
             canonical_role_id=primary_role.id,
             base_location="Curitiba",
             seniority_level="pleno",
@@ -144,7 +144,7 @@ def test_run_persists_results_and_never_evaluates_incompatible_roles() -> None:
         )
         incompatible = workforce_models.Employee(
             employee_number="ELG-004",
-            name="Pessoa Incompat�vel",
+            name="Pessoa Incompatível",
             canonical_role_id=incompatible_role.id,
             base_location="Curitiba",
             seniority_level="pleno",
@@ -183,7 +183,7 @@ def test_run_persists_results_and_never_evaluates_incompatible_roles() -> None:
         )
         training = workforce_models.TrainingCatalog(
             code="TRN-ELG",
-            name="Forma��o NR-35",
+            name="Formação NR-35",
             qualification_id=qualification.id,
             duration_minutes=480,
             cost_cents=50_000,

@@ -1,18 +1,18 @@
-# Cadastro de conex�es e MCP local
+# Cadastro de conexões e MCP local
 
 > Status: implementado.
 
-## Duas superf�cies separadas
+## Duas superfícies separadas
 
-`/conexoes-mcp` � um cadastro de configura��es individuais, n�o um cliente MCP. Exige sess�o TWR e cada opera��o deriva o propriet�rio do cookie autenticado; o navegador nunca envia `user_id`. O Claude ou ChatGPT recebe a configura��o fora do TWR, conforme plano e permiss�es administrativas do cliente escolhido.
+`/conexoes-mcp` é um cadastro de configurações individuais, não um cliente MCP. Exige sessão TWR e cada operação deriva o proprietário do cookie autenticado; o navegador nunca envia `user_id`. O Claude ou ChatGPT recebe a configuração fora do TWR, conforme plano e permissões administrativas do cliente escolhido.
 
-O servidor local � uma superf�cie t�cnica separada:
+O servidor local é uma superfície técnica separada:
 
 ```text
-Cliente MCP -> stdio -> adaptador MCP -> ToolRegistry -> servi�os da aplica��o
+Cliente MCP -> stdio -> adaptador MCP -> ToolRegistry -> serviços da aplicação
 ```
 
-Ele � iniciado em `backend` com:
+Ele é iniciado em `backend` com:
 
 ```powershell
 uv run python -m app.mcp_server
@@ -20,7 +20,7 @@ uv run python -m app.mcp_server
 
 ## Schema persistido
 
-A migra��o `0010_user_mcp_connections` cria `user_mcp_connections` com `id`, `user_id`, `name`, `client_type`, `endpoint_url`, `transport`, `notes`, `enabled`, `last_validated_at`, `created_at` e `updated_at`. A constraint `uq_user_mcp_connection_name` impede nome repetido para o mesmo usu�rio e destino. N�o existe coluna de segredo.
+A migração `0010_user_mcp_connections` cria `user_mcp_connections` com `id`, `user_id`, `name`, `client_type`, `endpoint_url`, `transport`, `notes`, `enabled`, `last_validated_at`, `created_at` e `updated_at`. A constraint `uq_user_mcp_connection_name` impede nome repetido para o mesmo usuário e destino. Não existe coluna de segredo.
 
 ## API autenticada
 
@@ -31,19 +31,19 @@ A migra��o `0010_user_mcp_connections` cria `user_mcp_connections` com `id`,
 - `DELETE /mcp-connections/{id}`: exclui um registro do ator;
 - `GET /mcp-connections/catalog`: lista as cinco ferramentas locais somente leitura.
 
-Registro inexistente e registro de outro usu�rio retornam o mesmo `404`. Duplicidade da constraint nominal retorna `409`; outros erros de integridade n�o s�o mascarados.
+Registro inexistente e registro de outro usuário retornam o mesmo `404`. Duplicidade da constraint nominal retorna `409`; outros erros de integridade não são mascarados.
 
-## Valida��o e seguran�a
+## Validação e segurança
 
-- remoto exige HTTPS; HTTP � aceito apenas para `localhost` em desenvolvimento;
-- userinfo, fragmentos, authorities malformadas e chaves de query de credencial s�o rejeitados;
-- `monkey`, `author` e `hockey` s�o chaves leg�timas e n�o s�o falsos positivos;
-- nenhum request de rede � feito durante a valida��o;
-- auditoria cont�m apenas `client_type`, `transport` e `enabled`, sem URL ou notas;
-- a configura��o copi�vel cont�m somente nome, URL e transporte.
+- remoto exige HTTPS; HTTP é aceito apenas para `localhost` em desenvolvimento;
+- userinfo, fragmentos, authorities malformadas e chaves de query de credencial são rejeitados;
+- `monkey`, `author` e `hockey` são chaves legítimas e não são falsos positivos;
+- nenhum request de rede é feito durante a validação;
+- auditoria contém apenas `client_type`, `transport` e `enabled`, sem URL ou notas;
+- a configuração copiável contém somente nome, URL e transporte.
 
-## Cat�logo local
+## Catálogo local
 
-As cinco ferramentas descritas em `docs/ai-tools.md` s�o de leitura, idempotentes e sem acesso externo. N�o h� ferramentas de solver, sele��o, outcome, importa��o, calibra��o ou qualquer escrita. O perfil profissional omite custos individuais.
+As cinco ferramentas descritas em `docs/ai-tools.md` são de leitura, idempotentes e sem acesso externo. Não há ferramentas de solver, seleção, outcome, importação, calibração ou qualquer escrita. O perfil profissional omite custos individuais.
 
-N�o h� transporte MCP HTTP hospedado pelo TWR nesta entrega. Um endpoint remoto cadastrado pertence a um servidor confi�vel administrado fora da aplica��o.
+Não há transporte MCP HTTP hospedado pelo TWR nesta entrega. Um endpoint remoto cadastrado pertence a um servidor confiável administrado fora da aplicação.

@@ -12,17 +12,17 @@ def test_user_facing_source_has_no_utf8_mojibake() -> None:
         project_root / "frontend" / "e2e",
     )
     mojibake = (
-        "í",
-        "á",
-        "·",
-        "ç",
-        "é",
-        "â",
-        "ã",
-        "…",
-        "ó",
-        "ê",
-        "õ",
+        "Ã­",
+        "Ã¡",
+        "Â·",
+        "Ã§",
+        "Ã©",
+        "Ã¢",
+        "Ã£",
+        "â€¦",
+        "Ã³",
+        "Ãª",
+        "Ãµ",
     )
     offenders: list[str] = []
     for root in roots:

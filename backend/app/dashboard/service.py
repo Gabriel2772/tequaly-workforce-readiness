@@ -231,7 +231,7 @@ class DashboardService:
                 explanation=(
                     cell.risk.explanations[0].message
                     if cell.risk.explanations
-                    else "Cobertura sem redund�ncia suficiente."
+                    else "Cobertura sem redundância suficiente."
                 ),
             )
             for cell in risky_cells[:12]

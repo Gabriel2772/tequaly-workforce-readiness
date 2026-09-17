@@ -26,12 +26,12 @@ def qualification_status(
     if issued_on > reference_date:
         return "futura"
     if expires_on is None:
-        return "v�lida"
+        return "válida"
     if expires_on < reference_date:
         return "vencida"
     if expires_on <= reference_date + timedelta(days=expiring_window_days):
         return "vence_em_breve"
-    return "v�lida"
+    return "válida"
 
 
 class EmployeeNotFoundError(LookupError):
@@ -139,6 +139,6 @@ class EmployeeProfileService:
                 )
                 for restriction in source.restrictions
             ],
-            prontidao={"status": "n�o_avaliada"},
+            prontidao={"status": "não_avaliada"},
             updated_at=source.updated_at,
         )

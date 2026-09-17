@@ -51,7 +51,7 @@ def _boolean(value: object, default: bool) -> bool:
         return default
     if text in {"1", "true", "sim", "yes", "ativo"}:
         return True
-    if text in {"0", "false", "nao", "n�o", "no", "inativo"}:
+    if text in {"0", "false", "nao", "não", "no", "inativo"}:
         return False
     raise ValueError("invalid_boolean")
 
@@ -125,7 +125,7 @@ class ImportRowValidator:
                         row=index,
                         code="missing_required_field",
                         field=field,
-                        message=f"O campo obrigat�rio {field} est� vazio.",
+                        message=f"O campo obrigatório {field} está vazio.",
                     )
                     for field in missing
                 )
@@ -139,7 +139,7 @@ class ImportRowValidator:
                         row=index,
                         code=code,
                         field=field or None,
-                        message=f"Valor inv�lido em {field or 'linha'} ({code}).",
+                        message=f"Valor inválido em {field or 'linha'} ({code}).",
                     )
                 )
                 continue
@@ -150,7 +150,7 @@ class ImportRowValidator:
                         row=index,
                         code="duplicate_natural_key",
                         field=None,
-                        message="A linha repete uma chave natural j� presente no arquivo.",
+                        message="A linha repete uma chave natural já presente no arquivo.",
                     )
                 )
                 continue
@@ -177,8 +177,8 @@ class ImportRowValidator:
                             code="inconsistent_operation",
                             field="code",
                             message=(
-                                "Linhas da mesma opera��o possuem dados de "
-                                "cabe�alho divergentes."
+                                "Linhas da mesma operação possuem dados de "
+                                "cabeçalho divergentes."
                             ),
                         )
                     )

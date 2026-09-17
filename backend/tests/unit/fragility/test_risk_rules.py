@@ -18,7 +18,7 @@ def test_uncovered_demand_is_critical_and_explains_threshold() -> None:
     explanation = assessment.explanations[0]
     assert explanation.threshold == 4
     assert explanation.observed == 2
-    assert "2 pessoa(s) eleg�vel(is) para 4 vaga(s)" in explanation.message
+    assert "2 pessoa(s) elegível(is) para 4 vaga(s)" in explanation.message
 
 
 def test_exact_coverage_is_high_risk_even_when_demand_is_covered() -> None:

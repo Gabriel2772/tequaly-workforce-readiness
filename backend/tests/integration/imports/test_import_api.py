@@ -43,7 +43,7 @@ def test_preview_reports_row_errors_without_persisting_domain_data() -> None:
     response = client.post(
         "/imports/preview",
         json=_payload(
-            "Matr�cula,Nome,Cargo,Base,N�vel,Admiss�o\n"
+            "Matrícula,Nome,Cargo,Base,Nível,Admissão\n"
             "IMP-001,Pessoa Importada,CARGO-INEXISTENTE,Curitiba,pleno,24/08/2026\n"
         ),
         headers=ADMIN_HEADERS,
@@ -66,8 +66,8 @@ def test_valid_preview_commits_once_and_preserves_unicode() -> None:
     preview = client.post(
         "/imports/preview",
         json=_payload(
-            "Matr�cula,Nome,Email,Cargo,Base,N�vel,Admiss�o,Ativo\n"
-            "IMP-001,Jo�o da Concei��o,joao.importado@example.com,"
+            "Matrícula,Nome,Email,Cargo,Base,Nível,Admissão,Ativo\n"
+            "IMP-001,João da Conceição,joao.importado@example.com,"
             f"{canonical_code},Curitiba,pleno,24/08/2026,sim\n"
         ),
         headers=ADMIN_HEADERS,
@@ -87,7 +87,7 @@ def test_valid_preview_commits_once_and_preserves_unicode() -> None:
     with factory() as session:
         employee = session.scalar(select(Employee).where(Employee.employee_number == "IMP-001"))
         assert employee is not None
-        assert employee.name == "Jo�o da Concei��o"
+        assert employee.name == "João da Conceição"
 
 
 def test_import_requires_admin_role() -> None:
@@ -95,7 +95,7 @@ def test_import_requires_admin_role() -> None:
 
     response = client.post(
         "/imports/preview",
-        json=_payload("Matr�cula,Nome\nIMP-001,Pessoa\n"),
+        json=_payload("Matrícula,Nome\nIMP-001,Pessoa\n"),
         headers={"X-TWR-Role": "planner"},
     )
 

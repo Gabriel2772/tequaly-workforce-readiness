@@ -24,7 +24,7 @@ def _client() -> tuple[TestClient, Engine, str]:
     with Session(engine) as session:
         family = workforce_models.RoleFamily(
             code="FAM-WRITE",
-            name="Fam�lia Escrita",
+            name="Família Escrita",
             active=True,
         )
         session.add(family)
@@ -56,7 +56,7 @@ def test_employee_create_patch_and_duplicate_contract() -> None:
         duplicate = client.post("/employees", json=payload)
         patched = client.patch(
             f"/employees/{created.json()['id']}",
-            json={"active": False, "seniority_level": "s�nior"},
+            json={"active": False, "seniority_level": "sênior"},
         )
         with Session(engine) as session:
             employee = session.scalar(
@@ -71,7 +71,7 @@ def test_employee_create_patch_and_duplicate_contract() -> None:
     assert patched.status_code == 200
     assert employee is not None
     assert employee.active is False
-    assert employee.seniority_level == "s�nior"
+    assert employee.seniority_level == "sênior"
 
 
 def test_viewer_write_is_rejected_with_stable_code_and_no_side_effect() -> None:
@@ -82,7 +82,7 @@ def test_viewer_write_is_rejected_with_stable_code_and_no_side_effect() -> None:
             headers={"X-TWR-Actor": "viewer@example.com", "X-TWR-Role": "viewer"},
             json={
                 "employee_number": "EMP-DENIED-001",
-                "name": "Pessoa sem permiss�o",
+                "name": "Pessoa sem permissão",
                 "canonical_role_id": role_id,
                 "base_location": "Curitiba",
                 "seniority_level": "pleno",
@@ -93,8 +93,8 @@ def test_viewer_write_is_rejected_with_stable_code_and_no_side_effect() -> None:
             headers={"X-TWR-Actor": "viewer@example.com", "X-TWR-Role": "viewer"},
             json={
                 "code": "QLF-DENIED",
-                "name": "Qualifica��o negada",
-                "category": "seguran�a",
+                "name": "Qualificação negada",
+                "category": "segurança",
             },
         )
         with Session(engine) as session:
@@ -119,8 +119,8 @@ def test_qualification_catalog_create_list_patch_and_duplicate_contract() -> Non
     client, engine, _role_id = _client()
     payload = {
         "code": "QLF-API-001",
-        "name": "Qualifica��o API",
-        "category": "seguran�a",
+        "name": "Qualificação API",
+        "category": "segurança",
         "validity_days": 730,
     }
     try:
@@ -129,7 +129,7 @@ def test_qualification_catalog_create_list_patch_and_duplicate_contract() -> Non
         duplicate = client.post("/qualifications", json=payload)
         patched = client.patch(
             f"/qualifications/{created.json()['id']}",
-            json={"name": "Qualifica��o API Atualizada", "validity_days": 365},
+            json={"name": "Qualificação API Atualizada", "validity_days": 365},
         )
         listed = client.get("/qualifications?page=1&page_size=25")
     finally:
@@ -141,7 +141,7 @@ def test_qualification_catalog_create_list_patch_and_duplicate_contract() -> Non
     assert listed.json()["page"] == 1
     assert listed.json()["page_size"] == 25
     assert listed.json()["total"] == 1
-    assert listed.json()["items"][0]["name"] == "Qualifica��o API Atualizada"
+    assert listed.json()["items"][0]["name"] == "Qualificação API Atualizada"
 
 
 def test_reference_catalogs_support_paginated_active_lifecycle() -> None:
@@ -153,8 +153,8 @@ def test_reference_catalogs_support_paginated_active_lifecycle() -> None:
         "/qualifications",
         json={
             "code": "QLF-TRAINING-API",
-            "name": "Qualifica��o do treinamento",
-            "category": "t�cnica",
+            "name": "Qualificação do treinamento",
+            "category": "técnica",
         },
     )
     assert qualification.status_code == 201
@@ -181,7 +181,7 @@ def test_reference_catalogs_support_paginated_active_lifecycle() -> None:
             "/authorizations",
             {
                 "code": "AUT-API-001",
-                "name": "Autoriza��o API",
+                "name": "Autorização API",
                 "scope_type": "cliente",
             },
             "AUT-API-001",
@@ -199,14 +199,14 @@ def test_reference_catalogs_support_paginated_active_lifecycle() -> None:
         ),
         (
             "/competencies",
-            {"code": "CMP-API-001", "name": "Compet�ncia API", "scale_max": 5},
+            {"code": "CMP-API-001", "name": "Competência API", "scale_max": 5},
             "CMP-API-001",
         ),
         (
             "/restrictions",
             {
                 "code": "RST-API-001",
-                "name": "Restri��o API",
+                "name": "Restrição API",
                 "hard_constraint": True,
             },
             "RST-API-001",
@@ -235,31 +235,31 @@ def test_employee_profile_subresources_are_created_transactionally() -> None:
     with Session(engine) as session:
         qualification = workforce_models.Qualification(
             code="QLF-LINK",
-            name="Qualifica��o V�nculo",
-            category="seguran�a",
+            name="Qualificação Vínculo",
+            category="segurança",
             validity_days=730,
             active=True,
         )
         authorization = workforce_models.Authorization(
             code="AUT-LINK",
-            name="Autoriza��o V�nculo",
+            name="Autorização Vínculo",
             scope_type="cliente",
             active=True,
         )
         competency = workforce_models.TechnicalCompetency(
             code="CMP-LINK",
-            name="Compet�ncia V�nculo",
+            name="Competência Vínculo",
             scale_max=5,
         )
         restriction = workforce_models.OperationalRestriction(
             code="RST-LINK",
-            name="Restri��o V�nculo",
+            name="Restrição Vínculo",
             hard_constraint=True,
         )
         operation = operation_models.Operation(
             code="OPS-LINK",
-            name="Opera��o V�nculo",
-            client_name="Cliente V�nculo",
+            name="Operação Vínculo",
+            client_name="Cliente Vínculo",
             base_location="Curitiba",
             starts_at=datetime(2026, 10, 1, tzinfo=UTC),
             ends_at=datetime(2026, 11, 1, tzinfo=UTC),
@@ -280,7 +280,7 @@ def test_employee_profile_subresources_are_created_transactionally() -> None:
         "/employees",
         json={
             "employee_number": "EMP-LINK-001",
-            "name": "Pessoa V�nculos",
+            "name": "Pessoa Vínculos",
             "canonical_role_id": role_id,
             "base_location": "Curitiba",
             "seniority_level": "pleno",
@@ -300,7 +300,7 @@ def test_employee_profile_subresources_are_created_transactionally() -> None:
             "authorizations",
             {
                 "authorization_id": reference_ids["authorization"],
-                "scope_value": "Cliente V�nculo",
+                "scope_value": "Cliente Vínculo",
                 "issued_on": "2026-01-01",
                 "expires_on": "2027-01-01",
             },
@@ -359,7 +359,7 @@ def test_employee_profile_subresources_are_created_transactionally() -> None:
             ("assignments", {"status": "confirmed"}),
             ("costs", {"hourly_cost_cents": 13_500}),
             ("competencies", {"level": 5}),
-            ("restrictions", {"notes": "Revis�o ocupacional pendente"}),
+            ("restrictions", {"notes": "Revisão ocupacional pendente"}),
         )
         patched = [
             client.patch(
@@ -403,5 +403,5 @@ def test_employee_profile_subresources_are_created_transactionally() -> None:
         "confirmed",
         "13500",
         "5",
-        "Revis�o ocupacional pendente",
+        "Revisão ocupacional pendente",
     )

@@ -23,7 +23,7 @@ def test_selection_requires_planner_and_records_idempotent_supersession_timeline
     with Session(engine) as session:
         operation = operation_models.Operation(
             code="SEL-OPS",
-            name="Opera��o de sele��o",
+            name="Operação de seleção",
             client_name="Cliente",
             base_location="Curitiba",
             starts_at=datetime(2030, 4, 1, tzinfo=UTC),
@@ -94,7 +94,7 @@ def test_selection_requires_planner_and_records_idempotent_supersession_timeline
         replacement = client.post(
             f"/decision-runs/{second_id}/select",
             headers={"X-TWR-Actor": "planner@example.com", "X-TWR-Role": "planner"},
-            json={"note": "Prazo passou a ser priorit�rio"},
+            json={"note": "Prazo passou a ser prioritário"},
         )
         timeline = client.get(f"/decision-runs/{second_id}")
         collection = client.get("/decision-runs")
@@ -138,7 +138,7 @@ def test_selection_requires_planner_and_records_idempotent_supersession_timeline
     assert active is not None
     assert active.decision_run_id == second_id
     assert active.actor_id == "planner@example.com"
-    assert active.note == "Prazo passou a ser priorit�rio"
+    assert active.note == "Prazo passou a ser prioritário"
     assert selection_count == 2
     assert event_count == 3
     engine.dispose()

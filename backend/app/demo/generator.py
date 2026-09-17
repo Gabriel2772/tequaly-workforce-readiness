@@ -215,12 +215,12 @@ def _build_aliases(roles: tuple[RoleSeed, ...]) -> tuple[RoleAliasSeed, ...]:
 def _qualification_category(index: int) -> str:
     boundaries = (20, 32, 42, 52, 60, 66, 72)
     categories = (
-        "seguran�a",
+        "segurança",
         "soldagem",
-        "inspe��o",
+        "inspeção",
         "equipamentos",
-        "t�cnica",
-        "gest�o",
+        "técnica",
+        "gestão",
         "digital",
     )
     return next(
@@ -259,7 +259,7 @@ def _build_training_catalog(
     return tuple(
         TrainingSeed(
             code=f"TRN-{index:03d}",
-            name=f"Forma��o: {qualification.name}",
+            name=f"Formação: {qualification.name}",
             qualification_code=qualification.code,
             duration_minutes=(8 + index % 5 * 4) * 60,
             cost_cents=(90_000 + index * 7_500),
@@ -280,11 +280,11 @@ def _build_employees(
         employees.append(
             EmployeeSeed(
                 employee_number=f"SYN-{index:05d}",
-                name=f"Colaborador Sint�tico {index:05d}",
+                name=f"Colaborador Sintético {index:05d}",
                 role_code=role.code,
                 base_location=rng.choices(BASES, weights=(34, 23, 18, 15, 10), k=1)[0],
                 seniority_level=rng.choices(
-                    ("j�nior", "pleno", "s�nior", "especialista"),
+                    ("júnior", "pleno", "sênior", "especialista"),
                     weights=(28, 42, 24, 6),
                     k=1,
                 )[0],
@@ -326,9 +326,9 @@ def _build_employee_qualifications(
 
 def _build_employee_costs(employees: tuple[EmployeeSeed, ...]) -> tuple[EmployeeCostSeed, ...]:
     seniority_costs = {
-        "j�nior": 6_500,
+        "júnior": 6_500,
         "pleno": 9_000,
-        "s�nior": 12_500,
+        "sênior": 12_500,
         "especialista": 16_000,
     }
     return tuple(
@@ -354,8 +354,8 @@ def _build_operations(
         operations.append(
             OperationSeed(
                 code=operation_code,
-                name=f"Opera��o Sint�tica {index:02d}",
-                client_name=f"Cliente Demonstra��o {index:02d}",
+                name=f"Operação Sintética {index:02d}",
+                client_name=f"Cliente Demonstração {index:02d}",
                 base_location=BASES[(index - 1) % len(BASES)],
                 starts_at=operation_start,
                 ends_at=operation_start + timedelta(days=45 + index * 3),

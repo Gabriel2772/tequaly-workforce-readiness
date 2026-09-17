@@ -26,7 +26,7 @@ def build_mcp_server(
     registry = build_read_registry()
     server: MCPServer[Any] = MCPServer(
         "tequaly-workforce-readiness",
-        instructions=("Ferramentas somente de leitura. N�o selecione cen�rios nem altere dados."),
+        instructions=("Ferramentas somente de leitura. Não selecione cenários nem altere dados."),
     )
 
     def execute(name: str, arguments: dict[str, object]) -> dict[str, object]:
@@ -40,12 +40,12 @@ def build_mcp_server(
 
     @server.tool(annotations=READ_ONLY, structured_output=True)
     def get_readiness_overview(horizon_days: int = 180) -> dict[str, object]:
-        """Indicadores executivos de prontid�o e cobertura."""
+        """Indicadores executivos de prontidão e cobertura."""
         return execute("get_readiness_overview", {"horizon_days": horizon_days})
 
     @server.tool(annotations=READ_ONLY, structured_output=True)
     def get_operation(operation_id: str) -> dict[str, object]:
-        """Detalhes, demandas e requisitos de uma opera��o."""
+        """Detalhes, demandas e requisitos de uma operação."""
         return execute("get_operation", {"operation_id": operation_id})
 
     @server.tool(annotations=READ_ONLY, structured_output=True)
@@ -55,12 +55,12 @@ def build_mcp_server(
 
     @server.tool(annotations=READ_ONLY, structured_output=True)
     def get_operational_fragility(horizon_days: int = 180) -> dict[str, object]:
-        """Fragilidade e cobertura explic�vel por demanda."""
+        """Fragilidade e cobertura explicável por demanda."""
         return execute("get_operational_fragility", {"horizon_days": horizon_days})
 
     @server.tool(annotations=READ_ONLY, structured_output=True)
     def get_decision_run(decision_run_id: str) -> dict[str, object]:
-        """Cen�rio calculado e evid�ncias audit�veis."""
+        """Cenário calculado e evidências auditáveis."""
         return execute("get_decision_run", {"decision_run_id": decision_run_id})
 
     return server

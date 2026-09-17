@@ -29,12 +29,12 @@ def login(
     if user is None or not verify_password(command.password, password_hash) or not user.active:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail={"code": "invalid_credentials", "message": "Usu�rio ou senha inv�lidos."},
+            detail={"code": "invalid_credentials", "message": "Usuário ou senha inválidos."},
         )
     if user.role not in {"viewer", "planner", "admin"}:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail={"code": "invalid_role", "message": "Perfil de acesso inv�lido."},
+            detail={"code": "invalid_role", "message": "Perfil de acesso inválido."},
         )
     role = cast(UserRole, user.role)
     settings: Settings = request.app.state.settings

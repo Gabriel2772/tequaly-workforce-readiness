@@ -22,7 +22,7 @@ def _client(*, auth_required: bool = True) -> tuple[TestClient, sessionmaker[Ses
                 AppUser(
                     username="planejador.demo",
                     email="planejador.demo@tequaly.local",
-                    display_name="Planejador de demonstra��o",
+                    display_name="Planejador de demonstração",
                     password_hash=hash_password("TequalyDemo!2026"),
                     role="planner",
                     active=True,
@@ -30,7 +30,7 @@ def _client(*, auth_required: bool = True) -> tuple[TestClient, sessionmaker[Ses
                 AppUser(
                     username="admin.demo",
                     email="admin.demo@tequaly.local",
-                    display_name="Administrador de demonstra��o",
+                    display_name="Administrador de demonstração",
                     password_hash=hash_password("TequalyDemo!2026"),
                     role="admin",
                     active=True,
@@ -62,7 +62,7 @@ def test_login_sets_http_only_session_and_me_returns_safe_profile() -> None:
     assert response.json()["role"] == "planner"
     assert "password_hash" not in response.json()
     assert current.status_code == 200
-    assert current.json()["display_name"] == "Planejador de demonstra��o"
+    assert current.json()["display_name"] == "Planejador de demonstração"
 
 
 def test_invalid_credentials_use_a_generic_error() -> None:

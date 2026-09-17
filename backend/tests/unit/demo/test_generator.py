@@ -40,7 +40,7 @@ def test_main_dataset_shape() -> None:
 def test_employee_records_are_explicitly_synthetic() -> None:
     data = generate_demo_dataset(7, 5)
 
-    assert all(employee.name.startswith("Colaborador Sint�tico ") for employee in data.employees)
+    assert all(employee.name.startswith("Colaborador Sintético ") for employee in data.employees)
     assert all(employee.employee_number.startswith("SYN-") for employee in data.employees)
 
 

@@ -43,7 +43,7 @@ def _duplicate_name_conflict() -> HTTPException:
         status_code=status.HTTP_409_CONFLICT,
         detail={
             "code": "duplicate_mcp_connection",
-            "message": "J� existe uma conex�o com esse nome para o destino.",
+            "message": "Já existe uma conexão com esse nome para o destino.",
         },
     )
 
@@ -66,7 +66,7 @@ def _not_found() -> HTTPException:
         status_code=status.HTTP_404_NOT_FOUND,
         detail={
             "code": "mcp_connection_not_found",
-            "message": "Conex�o MCP n�o encontrada.",
+            "message": "Conexão MCP não encontrada.",
         },
     )
 

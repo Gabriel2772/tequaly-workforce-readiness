@@ -13,7 +13,7 @@ def test_operation_end_must_follow_start() -> None:
     with pytest.raises(ValidationError, match="ends_at"):
         OperationCreate(
             code="OPS-DATE",
-            name="Opera��o inv�lida",
+            name="Operação inválida",
             client_name="Cliente",
             base_location="Curitiba",
             starts_at=starts_at,

@@ -17,20 +17,20 @@ class EligibilityReasonCode(StrEnum):
 
 REASON_MESSAGES: dict[EligibilityReasonCode, str] = {
     EligibilityReasonCode.INACTIVE_EMPLOYEE: "Colaborador inativo.",
-    EligibilityReasonCode.INCOMPATIBLE_ROLE: "Cargo ou fun��o incompat�vel com a demanda.",
-    EligibilityReasonCode.UNAVAILABLE_FOR_OPERATION: "Disponibilidade n�o cobre a opera��o.",
-    EligibilityReasonCode.ASSIGNMENT_CONFLICT: "Existe uma aloca��o conflitante no per�odo.",
-    EligibilityReasonCode.MISSING_AUTHORIZATION: "Autoriza��o obrigat�ria ausente.",
+    EligibilityReasonCode.INCOMPATIBLE_ROLE: "Cargo ou função incompatível com a demanda.",
+    EligibilityReasonCode.UNAVAILABLE_FOR_OPERATION: "Disponibilidade não cobre a operação.",
+    EligibilityReasonCode.ASSIGNMENT_CONFLICT: "Existe uma alocação conflitante no período.",
+    EligibilityReasonCode.MISSING_AUTHORIZATION: "Autorização obrigatória ausente.",
     EligibilityReasonCode.AUTHORIZATION_EXPIRES_BEFORE_END: (
-        "Autoriza��o expira antes do fim da opera��o."
+        "Autorização expira antes do fim da operação."
     ),
-    EligibilityReasonCode.MISSING_QUALIFICATION: "Qualifica��o obrigat�ria ausente.",
+    EligibilityReasonCode.MISSING_QUALIFICATION: "Qualificação obrigatória ausente.",
     EligibilityReasonCode.TRAINING_AFTER_DEADLINE: (
-        "Capacita��o termina ap�s o prazo de mobiliza��o."
+        "Capacitação termina após o prazo de mobilização."
     ),
-    EligibilityReasonCode.INSUFFICIENT_EXPERIENCE: "Experi�ncia abaixo do m�nimo exigido.",
-    EligibilityReasonCode.OPERATIONAL_RESTRICTION: "Restri��o operacional aplic�vel.",
+    EligibilityReasonCode.INSUFFICIENT_EXPERIENCE: "Experiência abaixo do mínimo exigido.",
+    EligibilityReasonCode.OPERATIONAL_RESTRICTION: "Restrição operacional aplicável.",
     EligibilityReasonCode.QUALIFICATION_EXPIRES_BEFORE_END: (
-        "Qualifica��o expira antes do fim da opera��o."
+        "Qualificação expira antes do fim da operação."
     ),
 }

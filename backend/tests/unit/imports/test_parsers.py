@@ -9,18 +9,18 @@ from app.imports.parsers import ImportFileError, parse_tabular_file
 def test_csv_parser_preserves_unicode() -> None:
     headers, rows = parse_tabular_file(
         "colaboradores.csv",
-        "Matr�cula,Nome\nT-001,Jo�o da Concei��o\n".encode(),
+        "Matrícula,Nome\nT-001,João da Conceição\n".encode(),
     )
 
-    assert headers == ["Matr�cula", "Nome"]
-    assert rows == [{"Matr�cula": "T-001", "Nome": "Jo�o da Concei��o"}]
+    assert headers == ["Matrícula", "Nome"]
+    assert rows == [{"Matrícula": "T-001", "Nome": "João da Conceição"}]
 
 
 def test_xlsx_parser_rejects_formulas() -> None:
     workbook = Workbook()
     sheet = workbook.active
-    sheet.append(["Matr�cula", "Nome"])
-    sheet.append(["T-001", '=CONCAT("Jo","�o")'])
+    sheet.append(["Matrícula", "Nome"])
+    sheet.append(["T-001", '=CONCAT("Jo","ão")'])
     output = BytesIO()
     workbook.save(output)
 

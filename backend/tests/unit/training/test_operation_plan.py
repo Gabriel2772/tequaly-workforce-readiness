@@ -16,7 +16,7 @@ def _add_trainable_gap(session: Session, suffix: str = "BLOCK") -> tuple[
     workforce_models.Employee,
     workforce_models.Qualification,
 ]:
-    family = workforce_models.RoleFamily(code=f"FAM-{suffix}", name=f"Fam�lia {suffix}")
+    family = workforce_models.RoleFamily(code=f"FAM-{suffix}", name=f"Família {suffix}")
     session.add(family)
     session.flush()
     role = workforce_models.Role(
@@ -27,8 +27,8 @@ def _add_trainable_gap(session: Session, suffix: str = "BLOCK") -> tuple[
     )
     qualification = workforce_models.Qualification(
         code=f"QLF-{suffix}",
-        name=f"Qualifica��o {suffix}",
-        category="seguran�a",
+        name=f"Qualificação {suffix}",
+        category="segurança",
         active=True,
     )
     session.add_all((role, qualification))
@@ -43,7 +43,7 @@ def _add_trainable_gap(session: Session, suffix: str = "BLOCK") -> tuple[
     )
     operation = operation_models.Operation(
         code=f"OPS-{suffix}",
-        name=f"Opera��o {suffix}",
+        name=f"Operação {suffix}",
         client_name="Cliente Teste",
         base_location="Curitiba",
         starts_at=datetime(2026, 10, 1, tzinfo=UTC),
@@ -96,26 +96,26 @@ def test_trainable_gap_chooses_earliest_session_before_mobilization_deadline() -
     Base.metadata.create_all(engine)
 
     with Session(engine) as session:
-        family = workforce_models.RoleFamily(code="FAM-TRN", name="Fam�lia Capacita��o")
+        family = workforce_models.RoleFamily(code="FAM-TRN", name="Família Capacitação")
         session.add(family)
         session.flush()
         role = workforce_models.Role(
             family_id=family.id,
             code="ROLE-TRN",
-            name="Montador de Capacita��o",
+            name="Montador de Capacitação",
             active=True,
         )
         qualification = workforce_models.Qualification(
             code="QLF-TRN",
-            name="NR de Capacita��o",
-            category="seguran�a",
+            name="NR de Capacitação",
+            category="segurança",
             active=True,
         )
         session.add_all((role, qualification))
         session.flush()
         employee = workforce_models.Employee(
             employee_number="TRN-001",
-            name="Pessoa Trein�vel",
+            name="Pessoa Treinável",
             canonical_role_id=role.id,
             base_location="Curitiba",
             seniority_level="pleno",
@@ -124,7 +124,7 @@ def test_trainable_gap_chooses_earliest_session_before_mobilization_deadline() -
         mobilization_deadline = datetime(2026, 9, 20, tzinfo=UTC)
         operation = operation_models.Operation(
             code="OPS-TRN-001",
-            name="Opera��o de Capacita��o",
+            name="Operação de Capacitação",
             client_name="Cliente Teste",
             base_location="Curitiba",
             starts_at=datetime(2026, 10, 1, tzinfo=UTC),
@@ -183,7 +183,7 @@ def test_trainable_gap_chooses_earliest_session_before_mobilization_deadline() -
         )
         cheaper = workforce_models.TrainingCatalog(
             code="TRN-CHEAP",
-            name="Curso Econ�mico",
+            name="Curso Econômico",
             qualification_id=qualification.id,
             duration_minutes=480,
             cost_cents=50_000,
@@ -244,7 +244,7 @@ def test_trainable_gap_without_viable_session_is_reported_as_blocked() -> None:
         session.add(
             workforce_models.TrainingCatalog(
                 code="TRN-BLOCK",
-                name="Curso sem turma vi�vel",
+                name="Curso sem turma viável",
                 qualification_id=qualification.id,
                 duration_minutes=480,
                 cost_cents=40_000,
@@ -261,7 +261,7 @@ def test_trainable_gap_without_viable_session_is_reported_as_blocked() -> None:
     assert blocker.employee_id == employee.id
     assert blocker.qualification_id == qualification.id
     assert blocker.code == "no_session_before_deadline"
-    assert "mobiliza��o" in blocker.message
+    assert "mobilização" in blocker.message
     engine.dispose()
 
 
@@ -401,13 +401,13 @@ def test_training_plan_skips_session_that_overlaps_existing_training() -> None:
         operation, employee, qualification = _add_trainable_gap(session, "BOOKED")
         booked_qualification = workforce_models.Qualification(
             code="QLF-BOOKED-OTHER",
-            name="Qualifica��o j� agendada",
-            category="t�cnica",
+            name="Qualificação já agendada",
+            category="técnica",
             active=True,
         )
         target_catalog = workforce_models.TrainingCatalog(
             code="TRN-BOOKED-TARGET",
-            name="Curso necess�rio",
+            name="Curso necessário",
             qualification_id=qualification.id,
             duration_minutes=480,
             cost_cents=40_000,
@@ -417,7 +417,7 @@ def test_training_plan_skips_session_that_overlaps_existing_training() -> None:
         session.flush()
         booked_catalog = workforce_models.TrainingCatalog(
             code="TRN-BOOKED-EXISTING",
-            name="Curso j� reservado",
+            name="Curso já reservado",
             qualification_id=booked_qualification.id,
             duration_minutes=480,
             cost_cents=30_000,
@@ -477,8 +477,8 @@ def test_training_plan_never_books_overlapping_new_sessions_for_employee() -> No
         operation, employee, first_qualification = _add_trainable_gap(session, "DOUBLE")
         second_qualification = workforce_models.Qualification(
             code="QLF-DOUBLE-2",
-            name="Segunda qualifica��o",
-            category="t�cnica",
+            name="Segunda qualificação",
+            category="técnica",
             active=True,
         )
         session.add(second_qualification)

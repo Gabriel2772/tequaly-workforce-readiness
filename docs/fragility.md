@@ -2,33 +2,33 @@
 
 ## O que o mapa mede
 
-Cada c�lula representa uma demanda de cargo/turno em uma opera��o futura. A base � a �ltima elegibilidade conclu�da para a opera��o e os indicadores s�o reproduz�veis:
+Cada célula representa uma demanda de cargo/turno em uma operação futura. A base é a última elegibilidade concluída para a operação e os indicadores são reproduzíveis:
 
-- cobertura: pessoas eleg�veis versus quantidade exigida;
-- redund�ncia: eleg�veis al�m da quantidade exigida;
-- trein�veis: pessoas que podem fechar uma lacuna antes do prazo;
-- vencimentos: pessoas eleg�veis cuja qualifica��o exigida vence at� a mobiliza��o;
-- press�o de aloca��o: eleg�veis j� comprometidos em per�odo concorrente;
-- aus�ncia de turma: lacunas trein�veis sem sess�o vi�vel.
+- cobertura: pessoas elegíveis versus quantidade exigida;
+- redundância: elegíveis além da quantidade exigida;
+- treináveis: pessoas que podem fechar uma lacuna antes do prazo;
+- vencimentos: pessoas elegíveis cuja qualificação exigida vence até a mobilização;
+- pressão de alocação: elegíveis já comprometidos em período concorrente;
+- ausência de turma: lacunas treináveis sem sessão viável.
 
-Sem execu��o de elegibilidade, os dados n�o s�o convertidos em falsa cobertura. O dashboard executivo marca a an�lise como pendente e o mapa s� usa runs conclu�dos.
+Sem execução de elegibilidade, os dados não são convertidos em falsa cobertura. O dashboard executivo marca a análise como pendente e o mapa só usa runs concluídos.
 
-## Severidade explic�vel
+## Severidade explicável
 
-As regras atuais s�o determin�sticas:
+As regras atuais são determinísticas:
 
-- `critical`: cobertura eleg�vel abaixo da quantidade exigida;
-- `high`: cobertura exata, sem redund�ncia, ou aloca��es concorrentes derrubam a cobertura efetiva;
-- `medium`: vencimento antes da mobiliza��o ou treinamento sem turma vi�vel;
-- `low`: nenhuma das condi��es anteriores.
+- `critical`: cobertura elegível abaixo da quantidade exigida;
+- `high`: cobertura exata, sem redundância, ou alocações concorrentes derrubam a cobertura efetiva;
+- `medium`: vencimento antes da mobilização ou treinamento sem turma viável;
+- `low`: nenhuma das condições anteriores.
 
-Uma c�lula recebe a maior severidade aplic�vel e mant�m todos os c�digos, limiares, valores observados e mensagens que contribu�ram para o resultado. O risco n�o � produzido por LLM e n�o substitui an�lise de seguran�a ou autoriza��o formal.
+Uma célula recebe a maior severidade aplicável e mantém todos os códigos, limiares, valores observados e mensagens que contribuíram para o resultado. O risco não é produzido por LLM e não substitui análise de segurança ou autorização formal.
 
-## Limita��es
+## Limitações
 
-- severidade ainda n�o incorpora criticidade contratual espec�fica do cliente;
-- aus�ncias, f�rias e escalas reais dependem da qualidade das janelas de disponibilidade;
-- correla��es entre requisitos e riscos sist�micos n�o s�o inferidas;
-- o horizonte � configur�vel, mas n�o existe proje��o probabil�stica de admiss�es ou desligamentos;
-- os limiares devem ser calibrados com hist�rico real antes de decis�o produtiva.
+- severidade ainda não incorpora criticidade contratual específica do cliente;
+- ausências, férias e escalas reais dependem da qualidade das janelas de disponibilidade;
+- correlações entre requisitos e riscos sistêmicos não são inferidas;
+- o horizonte é configurável, mas não existe projeção probabilística de admissões ou desligamentos;
+- os limiares devem ser calibrados com histórico real antes de decisão produtiva.
 

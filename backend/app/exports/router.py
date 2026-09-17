@@ -31,7 +31,7 @@ def export_data(
     except ValueError as error:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
-            detail={"code": str(error), "message": "Exporta��o inv�lida."},
+            detail={"code": str(error), "message": "Exportação inválida."},
         ) from error
     return Response(
         content=result.content,

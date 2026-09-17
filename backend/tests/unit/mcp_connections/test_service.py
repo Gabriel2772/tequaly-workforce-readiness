@@ -85,8 +85,8 @@ def test_metadata_only_changes_preserve_last_validation() -> None:
         updated = service.update(
             connection.id,
             McpConnectionUpdate(
-                name="MCP Produ��o",
-                notes="Nota p�blica",
+                name="MCP Produção",
+                notes="Nota pública",
                 enabled=False,
             ),
         )

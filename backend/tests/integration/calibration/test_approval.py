@@ -25,7 +25,7 @@ def test_calibration_suggestion_requires_explicit_confirmation_and_versions_para
     with Session(engine) as session:
         operation = operation_models.Operation(
             code="CAL-OPS",
-            name="Opera��o de calibra��o",
+            name="Operação de calibração",
             client_name="Cliente",
             base_location="Curitiba",
             starts_at=datetime(2030, 4, 1, tzinfo=UTC),

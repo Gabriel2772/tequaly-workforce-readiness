@@ -33,7 +33,7 @@ def test_fragility_api_aggregates_role_risk_without_employee_details() -> None:
         )
         operation = operation_models.Operation(
             code="RISK-OPS",
-            name="Parada cr�tica",
+            name="Parada crítica",
             client_name="Cliente",
             base_location="Curitiba",
             starts_at=datetime(2030, 4, 1, tzinfo=UTC),

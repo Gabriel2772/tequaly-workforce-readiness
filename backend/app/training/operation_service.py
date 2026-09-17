@@ -271,7 +271,7 @@ class TrainingPlanningService:
                         qualification_id=qualification_id,
                         qualification_name=qualification.name,
                         code="no_session_before_deadline",
-                        message="Nenhuma turma com vaga termina antes da mobiliza��o.",
+                        message="Nenhuma turma com vaga termina antes da mobilização.",
                         deadline=deadline,
                         affected_demand_ids=affected_demand_ids,
                     )

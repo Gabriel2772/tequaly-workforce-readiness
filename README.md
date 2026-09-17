@@ -1,21 +1,21 @@
 # Tequaly Workforce Readiness
 
-Aplica��o audit�vel para cadastrar for�a de trabalho, avaliar prontid�o e montar equipes operacionais com regras determin�sticas e OR-Tools CP-SAT. O produto n�o cont�m chat interno, execu��o de modelos ou integra��o com provedores de IA e n�o solicita chaves OpenAI ou Anthropic.
+Aplicação auditável para cadastrar força de trabalho, avaliar prontidão e montar equipes operacionais com regras determinísticas e OR-Tools CP-SAT. O produto não contém chat interno, execução de modelos ou integração com provedores de IA e não solicita chaves OpenAI ou Anthropic.
 
-## Escopo demonstr�vel
+## Escopo demonstrável
 
-O seed principal usa 2.200 colaboradores; o benchmark usa 3.000. O cat�logo sint�tico cont�m 12 fam�lias, 90 cargos can�nicos, 130 aliases, 72 qualifica��es, 24 autoriza��es, 24 treinamentos e 8 opera��es. Esses n�meros s�o hip�teses de demonstra��o, n�o dados oficiais da Tequaly. A integra��o produtiva ainda exige fontes governadas, mapeamento, valida��o de regras, LGPD e aceite de RH/opera��es.
+O seed principal usa 2.200 colaboradores; o benchmark usa 3.000. O catálogo sintético contém 12 famílias, 90 cargos canônicos, 130 aliases, 72 qualificações, 24 autorizações, 24 treinamentos e 8 operações. Esses números são hipóteses de demonstração, não dados oficiais da Tequaly. A integração produtiva ainda exige fontes governadas, mapeamento, validação de regras, LGPD e aceite de RH/operações.
 
-Al�m do n�cleo operacional, usu�rios autenticados podem organizar metadados das pr�prias conex�es MCP em `/conexoes-mcp`. O TWR guarda apenas nome, destino, endpoint, transporte, observa��o, estado e timestamps; n�o guarda tokens, senhas, headers ou outros segredos. A valida��o � somente estrutural e nunca chama a URL cadastrada. A configura��o e a autentica��o efetivas acontecem externamente no Claude ou ChatGPT e podem depender do plano e de permiss�es administrativas.
+Além do núcleo operacional, usuários autenticados podem organizar metadados das próprias conexões MCP em `/conexoes-mcp`. O TWR guarda apenas nome, destino, endpoint, transporte, observação, estado e timestamps; não guarda tokens, senhas, headers ou outros segredos. A validação é somente estrutural e nunca chama a URL cadastrada. A configuração e a autenticação efetivas acontecem externamente no Claude ou ChatGPT e podem depender do plano e de permissões administrativas.
 
 ## Requisitos
 
 - Python 3.12 e [uv](https://docs.astral.sh/uv/);
 - Node.js 22.12+ e pnpm 11 (gate final: Node.js 24.19.0 e pnpm 11.19.0);
-- PostgreSQL 18 para a execu��o de refer�ncia e o gate de integra��o;
+- PostgreSQL 18 para a execução de referência e o gate de integração;
 - Microsoft Edge para o E2E local configurado.
 
-## Instala��o e migra��o
+## Instalação e migração
 
 ```powershell
 Copy-Item .env.example backend\.env
@@ -45,33 +45,33 @@ Set-Location frontend
 pnpm dev
 ```
 
-Abra `http://localhost:3000`; a sa�de da API fica em `http://localhost:8000/health`. O cadastro MCP por usu�rio requer login TWR. Para demonstra��o, use `viewer.demo`, `planner.demo` ou `admin.demo`, todos com a senha sint�tica `TequalyDemo!2026`. Em ambiente estrito, defina `TWR_AUTH_REQUIRED=true`.
+Abra `http://localhost:3000`; a saúde da API fica em `http://localhost:8000/health`. O cadastro MCP por usuário requer login TWR. Para demonstração, use `viewer.demo`, `planner.demo` ou `admin.demo`, todos com a senha sintética `TequalyDemo!2026`. Em ambiente estrito, defina `TWR_AUTH_REQUIRED=true`.
 
-## Inicializa��o offline no Windows
+## Inicialização offline no Windows
 
-A entrega preparada para Windows inclui runtimes, depend�ncias, build e banco local. D� dois cliques em `INICIAR_TWR.bat` para iniciar a API e o frontend sem Codex e abrir `http://127.0.0.1:3000/conexoes-mcp` no Google Chrome. O inicializador evita processos duplicados, aguarda os servi�os responderem e grava diagn�sticos na pasta `logs/`.
+A entrega preparada para Windows inclui runtimes, dependências, build e banco local. Dê dois cliques em `INICIAR_TWR.bat` para iniciar a API e o frontend sem Codex e abrir `http://127.0.0.1:3000/conexoes-mcp` no Google Chrome. O inicializador evita processos duplicados, aguarda os serviços responderem e grava diagnósticos na pasta `logs/`.
 
-O funcionamento offline depende de manter na mesma pasta os diret�rios `.runtime/`, `backend/.venv/`, `backend/.local/`, `frontend/node_modules/` e `frontend/.next/` fornecidos com a entrega.
+O funcionamento offline depende de manter na mesma pasta os diretórios `.runtime/`, `backend/.venv/`, `backend/.local/`, `frontend/node_modules/` e `frontend/.next/` fornecidos com a entrega.
 
 ## MCP
 
-A p�gina `/conexoes-mcp` consome estas rotas autenticadas:
+A página `/conexoes-mcp` consome estas rotas autenticadas:
 
 - `GET/POST /mcp-connections`;
 - `PATCH/DELETE /mcp-connections/{connection_id}`;
 - `POST /mcp-connections/{connection_id}/validate`;
 - `GET /mcp-connections/catalog`.
 
-O servidor MCP t�cnico local permanece dispon�vel por `stdio` e exp�e cinco ferramentas determin�sticas somente leitura:
+O servidor MCP técnico local permanece disponível por `stdio` e expõe cinco ferramentas determinísticas somente leitura:
 
 ```powershell
 Set-Location backend
 uv run python -m app.mcp_server
 ```
 
-Consulte `docs/mcp.md` e `docs/ai-tools.md` para o schema, limites e cat�logo.
+Consulte `docs/mcp.md` e `docs/ai-tools.md` para o schema, limites e catálogo.
 
-## Verifica��o
+## Verificação
 
 Backend completo e testes focados do cadastro MCP:
 
@@ -97,10 +97,10 @@ pnpm e2e
 pnpm exec playwright test e2e/mcp-connections.spec.ts
 ```
 
-O Playwright usa o build de produ��o e recria um SQLite isolado em `frontend/.e2e/`. Para o round-trip PostgreSQL, defina `TWR_TEST_DATABASE_URL` com um banco vazio cujo nome termine em `_test`.
+O Playwright usa o build de produção e recria um SQLite isolado em `frontend/.e2e/`. Para o round-trip PostgreSQL, defina `TWR_TEST_DATABASE_URL` com um banco vazio cujo nome termine em `_test`.
 
 ## Funcionalidades entregues
 
-Cadastros e perfis, opera��es e requisitos, elegibilidade explic�vel, otimiza��o em tr�s objetivos, sele��o e outcomes audit�veis, calibra��o supervisionada, capacita��o, fragilidade, dashboard executivo, importa��o com preview, exporta��es seguras, qualidade de dados, autentica��o por perfil, cadastro individual de conex�es MCP e MCP local somente leitura.
+Cadastros e perfis, operações e requisitos, elegibilidade explicável, otimização em três objetivos, seleção e outcomes auditáveis, calibração supervisionada, capacitação, fragilidade, dashboard executivo, importação com preview, exportações seguras, qualidade de dados, autenticação por perfil, cadastro individual de conexões MCP e MCP local somente leitura.
 
-Veja `docs/` para arquitetura, modelo, otimiza��o, UX, roteiro, plano de testes e evid�ncias.
+Veja `docs/` para arquitetura, modelo, otimização, UX, roteiro, plano de testes e evidências.

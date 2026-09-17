@@ -30,7 +30,7 @@ def _session_with_role() -> tuple[Session, Role]:
     engine = create_engine("sqlite://")
     Base.metadata.create_all(engine)
     session = Session(engine)
-    family = RoleFamily(id=uuid4(), code="FAM-TEST", name="Fam�lia Teste", active=True)
+    family = RoleFamily(id=uuid4(), code="FAM-TEST", name="Família Teste", active=True)
     role = Role(
         family_id=family.id,
         code="ROLE-TEST",
@@ -72,8 +72,8 @@ def test_create_employee_rejects_unknown_role() -> None:
                     employee_number="EMP-002",
                     name="Pessoa de Teste 2",
                     canonical_role_id=uuid4(),
-                    base_location="Maca�",
-                    seniority_level="s�nior",
+                    base_location="Macaé",
+                    seniority_level="sênior",
                 )
             )
     finally:
@@ -117,16 +117,16 @@ def test_add_qualification_rejects_expiry_before_issue() -> None:
     employee = service.create_employee(
         EmployeeCreate(
             employee_number="EMP-004",
-            name="Pessoa Qualifica��o",
+            name="Pessoa Qualificação",
             canonical_role_id=role.id,
-            base_location="Maca�",
-            seniority_level="s�nior",
+            base_location="Macaé",
+            seniority_level="sênior",
         )
     )
     qualification = Qualification(
         code="QLF-DATE",
-        name="Qualifica��o com validade",
-        category="seguran�a",
+        name="Qualificação com validade",
+        category="segurança",
         validity_days=365,
         active=True,
     )
@@ -177,7 +177,7 @@ def test_add_authorization_rejects_expiry_before_issue() -> None:
     employee = service.create_employee(
         EmployeeCreate(
             employee_number="EMP-AUTH-DATE",
-            name="Pessoa Autoriza��o",
+            name="Pessoa Autorização",
             canonical_role_id=role.id,
             base_location="Curitiba",
             seniority_level="pleno",
@@ -185,7 +185,7 @@ def test_add_authorization_rejects_expiry_before_issue() -> None:
     )
     authorization = Authorization(
         code="AUT-DATE",
-        name="Autoriza��o com validade",
+        name="Autorização com validade",
         scope_type="cliente",
         active=True,
     )

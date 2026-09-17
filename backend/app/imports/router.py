@@ -51,5 +51,5 @@ def commit_import(
         session.rollback()
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail={"code": str(error), "message": "A importa��o n�o pode ser confirmada."},
+            detail={"code": str(error), "message": "A importação não pode ser confirmada."},
         ) from error

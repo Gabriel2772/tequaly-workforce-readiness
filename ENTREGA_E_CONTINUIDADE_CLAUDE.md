@@ -1,20 +1,20 @@
-# Tequaly Workforce Readiness � entrega e continuidade
+# Tequaly Workforce Readiness — entrega e continuidade
 
-Data de consolida��o: 26 de agosto de 2026
+Data de consolidação: 26 de agosto de 2026
 Branch: `feat/twr-core`
 Commit: consulte `git log -1 --oneline` no pacote.
 
 ## 1. Veredito e fronteira
 
-A vers�o demonstr�vel re�ne n�cleo determin�stico, solver, trilha de auditoria, autentica��o por perfil, importa��o/exporta��o, intelig�ncia operacional, cadastro individual de conex�es MCP e servidor MCP local somente leitura.
+A versão demonstrável reúne núcleo determinístico, solver, trilha de auditoria, autenticação por perfil, importação/exportação, inteligência operacional, cadastro individual de conexões MCP e servidor MCP local somente leitura.
 
-N�o existe chat interno, execu��o de modelos, depend�ncia de OpenAI/Anthropic ou campo de chave de provedor de IA. O fluxo OAuth planejado anteriormente foi removido; o TWR n�o autentica Claude ou ChatGPT. A p�gina MCP apenas organiza metadados n�o secretos por usu�rio autenticado. A configura��o final, inclusive eventual autentica��o exigida pelo servidor, acontece no cliente externo e pode depender de plano, fun��o ou administrador.
+Não existe chat interno, execução de modelos, dependência de OpenAI/Anthropic ou campo de chave de provedor de IA. O fluxo OAuth planejado anteriormente foi removido; o TWR não autentica Claude ou ChatGPT. A página MCP apenas organiza metadados não secretos por usuário autenticado. A configuração final, inclusive eventual autenticação exigida pelo servidor, acontece no cliente externo e pode depender de plano, função ou administrador.
 
-Para produ��o ainda s�o necess�rios dados oficiais, valida��o das regras com RH/opera��es, PostgreSQL na infraestrutura alvo, SSO corporativo, implanta��o, observabilidade e aceite de seguran�a/acessibilidade.
+Para produção ainda são necessários dados oficiais, validação das regras com RH/operações, PostgreSQL na infraestrutura alvo, SSO corporativo, implantação, observabilidade e aceite de segurança/acessibilidade.
 
 ## 2. Premissas simuladas
 
-O seed principal cont�m 2.200 colaboradores e o benchmark 3.000, com 12 fam�lias, 90 cargos can�nicos, 130 aliases, 72 qualifica��es, 24 autoriza��es, 24 treinamentos e 8 opera��es. S�o hip�teses reprodut�veis, n�o headcount ou cat�logo oficial da Tequaly. Dados reais devem entrar por profiling, mapeamento, preview e aprova��o governada; nunca substituir o seed silenciosamente.
+O seed principal contém 2.200 colaboradores e o benchmark 3.000, com 12 famílias, 90 cargos canônicos, 130 aliases, 72 qualificações, 24 autorizações, 24 treinamentos e 8 operações. São hipóteses reprodutíveis, não headcount ou catálogo oficial da Tequaly. Dados reais devem entrar por profiling, mapeamento, preview e aprovação governada; nunca substituir o seed silenciosamente.
 
 ## 3. Arquitetura entregue
 
@@ -22,7 +22,7 @@ O seed principal cont�m 2.200 colaboradores e o benchmark 3.000, com 12 fam�
 Next.js 16 / React 19 / TypeScript
              |
              v
-FastAPI modular + sess�o TWR assinada
+FastAPI modular + sessão TWR assinada
       |              |                 |
       v              v                 v
 SQLAlchemy       regras/CP-SAT    ToolRegistry read-only
@@ -31,14 +31,14 @@ SQLAlchemy       regras/CP-SAT    ToolRegistry read-only
 PostgreSQL alvo / SQLite teste       MCP stdio local
              |
              v
-user_mcp_connections (metadados por usu�rio)
+user_mcp_connections (metadados por usuário)
 ```
 
-O frontend n�o cont�m regra de elegibilidade/solver. A valida��o MCP � estrutural e n�o abre conex�o para URLs do usu�rio. O servidor local continua iniciado por `uv run python -m app.mcp_server` e exp�e cinco ferramentas determin�sticas de leitura.
+O frontend não contém regra de elegibilidade/solver. A validação MCP é estrutural e não abre conexão para URLs do usuário. O servidor local continua iniciado por `uv run python -m app.mcp_server` e expõe cinco ferramentas determinísticas de leitura.
 
 ## 4. Schema e rotas MCP atuais
 
-Migra��o: `0010_user_mcp_connections`, ap�s `0009_import_batches`.
+Migração: `0010_user_mcp_connections`, após `0009_import_batches`.
 
 Tabela `user_mcp_connections`:
 
@@ -47,8 +47,8 @@ Tabela `user_mcp_connections`:
 - `endpoint_url` (2048), `transport` (`streamable_http|sse`);
 - `notes` (1000), `enabled`;
 - `last_validated_at`, `created_at`, `updated_at`;
-- unique `uq_user_mcp_connection_name` sobre usu�rio, destino e nome;
-- �ndice `ix_user_mcp_connections_owner` sobre usu�rio e atualiza��o.
+- unique `uq_user_mcp_connection_name` sobre usuário, destino e nome;
+- índice `ix_user_mcp_connections_owner` sobre usuário e atualização.
 
 Rotas autenticadas:
 
@@ -59,20 +59,20 @@ Rotas autenticadas:
 - `DELETE /mcp-connections/{connection_id}`;
 - `GET /mcp-connections/catalog`.
 
-O owner sempre vem da sess�o. A mesma resposta `404` protege IDs ausentes e de outro usu�rio. `409` � reservado � constraint nominal. Os eventos de auditoria omitem URL e notas.
+O owner sempre vem da sessão. A mesma resposta `404` protege IDs ausentes e de outro usuário. `409` é reservado à constraint nominal. Os eventos de auditoria omitem URL e notas.
 
 ## 5. Fluxo visual entregue
 
 - rota frontend autenticada `/conexoes-mcp`;
-- cria��o, edi��o, valida��o, c�pia sem segredos, ativa��o, desativa��o e exclus�o;
+- criação, edição, validação, cópia sem segredos, ativação, desativação e exclusão;
 - busca e filtros por destino/estado;
-- estados de loading, erro recuper�vel, sess�o expirada e vazio;
+- estados de loading, erro recuperável, sessão expirada e vazio;
 - cards de Claude/ChatGPT com limites de plano/admin;
-- sidebar com dez �cones SVG, marca vetorial original, active state com boundary de segmento, modo compacto e gaveta m�vel que fecha tamb�m em mudan�a de pathname.
+- sidebar com dez ícones SVG, marca vetorial original, active state com boundary de segmento, modo compacto e gaveta móvel que fecha também em mudança de pathname.
 
-Capturas: n�o h� PNG est�tico rastreado no pacote. O Playwright est� configurado com `screenshot: "only-on-failure"` e `trace: "retain-on-failure"`; artefatos de execu��o ficam em `frontend/test-results/`, s�o privados/ignorados e n�o entram no ZIP. O fluxo vis�vel � provado pelo E2E `frontend/e2e/mcp-connections.spec.ts` em desktop e viewport 390 � 844.
+Capturas: não há PNG estático rastreado no pacote. O Playwright está configurado com `screenshot: "only-on-failure"` e `trace: "retain-on-failure"`; artefatos de execução ficam em `frontend/test-results/`, são privados/ignorados e não entram no ZIP. O fluxo visível é provado pelo E2E `frontend/e2e/mcp-connections.spec.ts` em desktop e viewport 390 × 844.
 
-## 6. Cat�logo MCP local
+## 6. Catálogo MCP local
 
 1. `get_readiness_overview`;
 2. `get_operation`;
@@ -80,9 +80,9 @@ Capturas: n�o h� PNG est�tico rastreado no pacote. O Playwright est� con
 4. `get_operational_fragility`;
 5. `get_decision_run`.
 
-N�o existem ferramentas de escrita, solver, sele��o, outcome, importa��o ou calibra��o.
+Não existem ferramentas de escrita, solver, seleção, outcome, importação ou calibração.
 
-## 7. Instala��o, execu��o e migra��es
+## 7. Instalação, execução e migrações
 
 ```powershell
 Copy-Item .env.example backend\.env
@@ -102,7 +102,7 @@ pnpm install
 pnpm dev
 ```
 
-Contas sint�ticas: `viewer.demo`, `planner.demo`, `admin.demo`; senha comum `TequalyDemo!2026`. N�o reutilizar em produ��o.
+Contas sintéticas: `viewer.demo`, `planner.demo`, `admin.demo`; senha comum `TequalyDemo!2026`. Não reutilizar em produção.
 
 MCP local:
 
@@ -140,7 +140,7 @@ pnpm build
 pnpm e2e
 ```
 
-Resultado final (preenchido somente ap�s o gate):
+Resultado final (preenchido somente após o gate):
 
 | Gate | Resultado |
 |---|---|
@@ -151,25 +151,25 @@ Resultado final (preenchido somente ap�s o gate):
 | Frontend TypeScript | passou |
 | Frontend ESLint | passou |
 | Next.js build | passou; build lista `/conexoes-mcp` |
-| Playwright Edge | 6 passaram em 5,6 min; migra��es `0001..0010` e seed de 300 |
+| Playwright Edge | 6 passaram em 5,6 min; migrações `0001..0010` e seed de 300 |
 
-A cadeia Alembic passa pela ponte `0010_mcp_oauth`, e o teste de migra��es cobre o upgrade legado.
+A cadeia Alembic passa pela ponte `0010_mcp_oauth`, e o teste de migrações cobre o upgrade legado.
 
-O round-trip PostgreSQL real permanece condicionado a `TWR_TEST_DATABASE_URL` apontando para um banco vazio terminado em `_test`; o gate local usa SQLite para migra��es/E2E.
+O round-trip PostgreSQL real permanece condicionado a `TWR_TEST_DATABASE_URL` apontando para um banco vazio terminado em `_test`; o gate local usa SQLite para migrações/E2E.
 
-## 9. Pend�ncias de produ��o
+## 9. Pendências de produção
 
-1. receber fontes oficiais de pessoas, cargos, qualifica��es, autoriza��es, treinamentos, opera��es, disponibilidade e custos;
-2. definir base legal, minimiza��o, reten��o, perfis de acesso e controles LGPD;
-3. validar mapeamentos e regras com respons�veis de RH/opera��es;
-4. executar migra��es, integra��o, performance e backup/restore em PostgreSQL alvo;
+1. receber fontes oficiais de pessoas, cargos, qualificações, autorizações, treinamentos, operações, disponibilidade e custos;
+2. definir base legal, minimização, retenção, perfis de acesso e controles LGPD;
+3. validar mapeamentos e regras com responsáveis de RH/operações;
+4. executar migrações, integração, performance e backup/restore em PostgreSQL alvo;
 5. substituir contas demo e fallback local por SSO corporativo;
-6. configurar TLS, cofre de segredos da pr�pria aplica��o, logs, m�tricas, alertas, deploy e rollback;
-7. realizar testes de seguran�a, acessibilidade e aceite com dados controlados;
-8. decidir separadamente qualquer servidor MCP remoto, com identidade, autentica��o, limites e observabilidade pr�prios.
+6. configurar TLS, cofre de segredos da própria aplicação, logs, métricas, alertas, deploy e rollback;
+7. realizar testes de segurança, acessibilidade e aceite com dados controlados;
+8. decidir separadamente qualquer servidor MCP remoto, com identidade, autenticação, limites e observabilidade próprios.
 
 ## 10. Continuidade
 
 Leia nesta ordem: este arquivo, `README.md`, `docs/architecture.md`, `docs/data-model.md`, `docs/mcp.md`, `docs/test-plan.md` e a spec implementada em `docs/superpowers/specs/2026-08-25-twr-user-mcp-registry-visual-design.md`.
 
-Preserve `backend/.local/`; nunca inclua `.env`, bancos, caches, `.venv`, `node_modules`, `.next`, traces ou resultados Playwright no Git/ZIP. O arquivo de entrega � gerado exclusivamente por `git archive HEAD`.
+Preserve `backend/.local/`; nunca inclua `.env`, bancos, caches, `.venv`, `node_modules`, `.next`, traces ou resultados Playwright no Git/ZIP. O arquivo de entrega é gerado exclusivamente por `git archive HEAD`.

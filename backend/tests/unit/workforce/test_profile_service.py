@@ -10,7 +10,7 @@ from app.workforce.schemas import EmployeeProfileVector
 def test_profile_vector_starts_with_required_fields() -> None:
     profile = EmployeeProfileVector(
         cargo_funcao_principal="Soldador",
-        nome="Colaborador Sint�tico 00001",
+        nome="Colaborador Sintético 00001",
         qualificacoes=[],
         competencias_tecnicas=[],
         autorizacoes=[],
@@ -21,7 +21,7 @@ def test_profile_vector_starts_with_required_fields() -> None:
         custos_incrementais=[],
         capacitacoes_agendadas=[],
         restricoes_operacionais=[],
-        prontidao={"status": "n�o_avaliada"},
+        prontidao={"status": "não_avaliada"},
         updated_at=datetime(2026, 8, 10, tzinfo=UTC),
     )
 
@@ -53,7 +53,7 @@ def test_qualification_status_is_not_accepted_as_a_stored_field() -> None:
     assert qualification_status(date(2025, 1, 1), date(2026, 8, 9), reference) == "vencida"
     assert qualification_status(date(2025, 1, 1), date(2026, 8, 25), reference) == "vence_em_breve"
     assert qualification_status(date(2026, 9, 1), date(2028, 9, 1), reference) == "futura"
-    assert qualification_status(date(2025, 1, 1), None, reference) == "v�lida"
+    assert qualification_status(date(2025, 1, 1), None, reference) == "válida"
 
 
 class FakeProfileRepository:
@@ -69,7 +69,7 @@ def test_profile_service_derives_qualification_statuses() -> None:
 
     source = EmployeeProfileSource(
         role_name="Soldador",
-        name="Colaborador Sint�tico 00001",
+        name="Colaborador Sintético 00001",
         base_location="Curitiba",
         seniority_level="pleno",
         updated_at=datetime(2026, 8, 10, tzinfo=UTC),
@@ -77,7 +77,7 @@ def test_profile_service_derives_qualification_statuses() -> None:
             QualificationSource(
                 id=UUID("1c359b98-4ae9-4f77-a984-a30de9f5b4a4"),
                 name="NR-35",
-                category="seguran�a",
+                category="segurança",
                 issued_on=date(2025, 8, 1),
                 expires_on=date(2026, 8, 20),
             ),
@@ -91,7 +91,7 @@ def test_profile_service_derives_qualification_statuses() -> None:
     profile = service.get_profile(UUID("cdfed211-0abb-4930-a7ab-a91214dcde11"))
 
     assert profile.qualificacoes[0].status == "vence_em_breve"
-    assert profile.prontidao == {"status": "n�o_avaliada"}
+    assert profile.prontidao == {"status": "não_avaliada"}
 
 
 def test_profile_service_rejects_unknown_employee() -> None:

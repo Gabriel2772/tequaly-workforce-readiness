@@ -1,31 +1,31 @@
-# Decis�o, resultado e calibra��o audit�vel
+# Decisão, resultado e calibração auditável
 
-## Trilha da decis�o
+## Trilha da decisão
 
-Cada cen�rio persiste objetivo, vers�es do solver e das regras, hash do snapshot de entrada, candidatos considerados, m�tricas, equipe, capacita��es, autor e hor�rio. A sele��o exige confirma��o humana e aceita uma justificativa. Uma nova sele��o n�o apaga a anterior: ela a marca como superada e registra um evento de auditoria.
+Cada cenário persiste objetivo, versões do solver e das regras, hash do snapshot de entrada, candidatos considerados, métricas, equipe, capacitações, autor e horário. A seleção exige confirmação humana e aceita uma justificativa. Uma nova seleção não apaga a anterior: ela a marca como superada e registra um evento de auditoria.
 
-Somente um cen�rio selecionado aceita resultado. O registro compara:
+Somente um cenário selecionado aceita resultado. O registro compara:
 
-- custo previsto e realizado, incluindo varia��o absoluta e percentual;
-- prontid�o prevista e real, incluindo minutos de avan�o ou atraso;
+- custo previsto e realizado, incluindo variação absoluta e percentual;
+- prontidão prevista e real, incluindo minutos de avanço ou atraso;
 - treinamentos planejados e realizados;
-- substitui��es de pessoas em rela��o ao snapshot.
+- substituições de pessoas em relação ao snapshot.
 
-O resultado � �nico por cen�rio e n�o pode ser silenciosamente sobrescrito.
+O resultado é único por cenário e não pode ser silenciosamente sobrescrito.
 
-## Calibra��o supervisionada
+## Calibração supervisionada
 
-Observa��es de custo de treinamento, deslocamento ou prazo de mobiliza��o podem acompanhar um resultado quando h� evid�ncia do realizado. Uma sugest�o exige pelo menos cinco observa��es compar�veis da mesma categoria.
+Observações de custo de treinamento, deslocamento ou prazo de mobilização podem acompanhar um resultado quando há evidência do realizado. Uma sugestão exige pelo menos cinco observações comparáveis da mesma categoria.
 
-O estimador usa mediana e intervalo interquartil para reduzir a influ�ncia de valores extremos. A aplica��o exige confirma��o expl�cita, cria uma vers�o imut�vel (`v1`, `v2`, ...) e registra quem aplicou, quando e com qual justificativa. N�o existe autoaplica��o.
+O estimador usa mediana e intervalo interquartil para reduzir a influência de valores extremos. A aplicação exige confirmação explícita, cria uma versão imutável (`v1`, `v2`, ...) e registra quem aplicou, quando e com qual justificativa. Não existe autoaplicação.
 
-O seed cont�m cinco observa��es hist�ricas sint�ticas na categoria `seguranca`: 300, 310, 320, 330 e 1.000 reais. O �ltimo valor � um outlier deliberado para demonstrar robustez estat�stica. Esses registros s�o identificados como `demo-seed` e n�o representam dados da Tequaly.
+O seed contém cinco observações históricas sintéticas na categoria `seguranca`: 300, 310, 320, 330 e 1.000 reais. O último valor é um outlier deliberado para demonstrar robustez estatística. Esses registros são identificados como `demo-seed` e não representam dados da Tequaly.
 
-## Controles ainda necess�rios para produ��o
+## Controles ainda necessários para produção
 
-- autentica��o SSO e autoriza��o associada a identidades reais;
-- pol�tica de reten��o, LGPD e segrega��o por perfil;
-- anexos ou refer�ncias da evid�ncia que sustenta cada valor realizado;
-- fluxo de revis�o em quatro olhos para par�metros cr�ticos;
-- cat�logo formal de par�metros e impacto das vers�es nos cen�rios futuros.
+- autenticação SSO e autorização associada a identidades reais;
+- política de retenção, LGPD e segregação por perfil;
+- anexos ou referências da evidência que sustenta cada valor realizado;
+- fluxo de revisão em quatro olhos para parâmetros críticos;
+- catálogo formal de parâmetros e impacto das versões nos cenários futuros.
 

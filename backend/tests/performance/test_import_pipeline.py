@@ -18,7 +18,7 @@ def test_three_thousand_employee_dry_run_and_commit_stay_within_poc_target() -> 
     Base.metadata.create_all(engine)
     dataset = generate_demo_dataset(seed=42, employee_count=20)
     role_code = dataset.canonical_roles[0].code
-    header = "Matr�cula,Nome,Email,Cargo,Base,N�vel,Admiss�o,Ativo"
+    header = "Matrícula,Nome,Email,Cargo,Base,Nível,Admissão,Ativo"
     rows = [
         f"PERF-{index:05d},Pessoa {index:05d},perf-{index:05d}@example.com,"
         f"{role_code},Curitiba,pleno,2026-01-10,sim"

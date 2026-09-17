@@ -173,20 +173,20 @@ def test_investment_api_generates_only_known_gaps_completed_inside_horizon() -> 
         role = workforce_models.Role(
             family_id=family.id,
             code="INV-ROLE",
-            name="Montador estrat�gico",
+            name="Montador estratégico",
             active=True,
         )
         qualification = workforce_models.Qualification(
             code="INV-QLF",
-            name="Qualifica��o estrat�gica",
-            category="seguran�a",
+            name="Qualificação estratégica",
+            category="segurança",
             active=True,
         )
         session.add_all((role, qualification))
         session.flush()
         employee = workforce_models.Employee(
             employee_number="INV-001",
-            name="Pessoa Estrat�gica",
+            name="Pessoa Estratégica",
             canonical_role_id=role.id,
             base_location="Curitiba",
             seniority_level="pleno",
@@ -194,7 +194,7 @@ def test_investment_api_generates_only_known_gaps_completed_inside_horizon() -> 
         )
         operation = operation_models.Operation(
             code="INV-OPS",
-            name="Opera��o futura",
+            name="Operação futura",
             client_name="Cliente",
             base_location="Curitiba",
             starts_at=datetime(2099, 4, 1, tzinfo=UTC),
@@ -240,7 +240,7 @@ def test_investment_api_generates_only_known_gaps_completed_inside_horizon() -> 
         )
         catalog = workforce_models.TrainingCatalog(
             code="INV-TRN",
-            name="Curso estrat�gico",
+            name="Curso estratégico",
             qualification_id=qualification.id,
             duration_minutes=480,
             cost_cents=40_000,
@@ -285,7 +285,7 @@ def test_investment_api_generates_only_known_gaps_completed_inside_horizon() -> 
     assert payload["coverage_gain"] == 100
     assert payload["unlocked_position_count"] == 1
     assert payload["opportunity_count"] == 1
-    assert payload["actions"][0]["employee_name"] == "Pessoa Estrat�gica"
+    assert payload["actions"][0]["employee_name"] == "Pessoa Estratégica"
     assert payload["actions"][0]["training_session_id"] == str(viable_session.id)
     assert payload["actions"][0]["benefited_operations"][0]["weight"] == 100
     engine.dispose()

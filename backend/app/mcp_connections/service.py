@@ -59,7 +59,7 @@ def _normalize_hostname(hostname: str) -> str:
     try:
         ascii_hostname = dns_hostname.encode("idna").decode("ascii").casefold()
     except UnicodeError as error:
-        raise InvalidMcpEndpoint("Endpoint MCP inv�lido.") from error
+        raise InvalidMcpEndpoint("Endpoint MCP inválido.") from error
 
     labels = ascii_hostname.split(".")
     if (
@@ -68,7 +68,7 @@ def _normalize_hostname(hostname: str) -> str:
         or any(_DNS_LABEL_PATTERN.fullmatch(label) is None for label in labels)
         or (len(labels) == 4 and all(label.isdigit() for label in labels))
     ):
-        raise InvalidMcpEndpoint("Endpoint MCP inv�lido.")
+        raise InvalidMcpEndpoint("Endpoint MCP inválido.")
 
     for label in labels:
         if not label.startswith("xn--"):
@@ -78,7 +78,7 @@ def _normalize_hostname(hostname: str) -> str:
             if decoded.encode("idna").decode("ascii").casefold() != label:
                 raise UnicodeError("invalid IDNA label")
         except UnicodeError as error:
-            raise InvalidMcpEndpoint("Endpoint MCP inv�lido.") from error
+            raise InvalidMcpEndpoint("Endpoint MCP inválido.") from error
 
     return f"{ascii_hostname}." if absolute else ascii_hostname
 
@@ -89,15 +89,15 @@ def validate_endpoint(endpoint_url: str, *, environment: str) -> str:
         character.isspace() or unicodedata.category(character) == "Cc"
         for character in candidate
     ):
-        raise InvalidMcpEndpoint("Endpoint MCP inv�lido.")
+        raise InvalidMcpEndpoint("Endpoint MCP inválido.")
     try:
         parsed = urlsplit(candidate)
         port = parsed.port
     except ValueError as error:
-        raise InvalidMcpEndpoint("Endpoint MCP inv�lido.") from error
+        raise InvalidMcpEndpoint("Endpoint MCP inválido.") from error
 
     if port == 0:
-        raise InvalidMcpEndpoint("Endpoint MCP inv�lido.")
+        raise InvalidMcpEndpoint("Endpoint MCP inválido.")
 
     scheme = parsed.scheme.casefold()
     hostname = parsed.hostname
@@ -109,7 +109,7 @@ def validate_endpoint(endpoint_url: str, *, environment: str) -> str:
         or "%" in parsed.netloc
         or parsed.netloc.endswith(":")
     ):
-        raise InvalidMcpEndpoint("Endpoint MCP inv�lido.")
+        raise InvalidMcpEndpoint("Endpoint MCP inválido.")
     hostname = _normalize_hostname(hostname)
 
     is_development_localhost = (
@@ -130,7 +130,7 @@ def validate_endpoint(endpoint_url: str, *, environment: str) -> str:
             query_tokens & _CREDENTIAL_QUERY_TOKENS
             or normalized_key in _CREDENTIAL_QUERY_IDENTIFIERS
         ):
-            raise InvalidMcpEndpoint("A URL do endpoint n�o pode conter credenciais.")
+            raise InvalidMcpEndpoint("A URL do endpoint não pode conter credenciais.")
 
     canonical_host = f"[{hostname}]" if ":" in hostname else hostname
     canonical_port = (

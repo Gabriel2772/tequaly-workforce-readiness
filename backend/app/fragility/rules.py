@@ -72,7 +72,7 @@ def assess_risk(metric: FragilityMetric) -> RiskAssessment:
             "critical",
             "coverage_below_required",
             (
-                f"{metric.eligible_count} pessoa(s) eleg�vel(is) para "
+                f"{metric.eligible_count} pessoa(s) elegível(is) para "
                 f"{metric.required_count} vaga(s)."
             ),
             threshold=metric.required_count,
@@ -82,7 +82,7 @@ def assess_risk(metric: FragilityMetric) -> RiskAssessment:
         add(
             "high",
             "single_point_of_failure",
-            "A cobertura � exata; a indisponibilidade de uma pessoa descobre a demanda.",
+            "A cobertura é exata; a indisponibilidade de uma pessoa descobre a demanda.",
             threshold=1,
             observed=metric.redundancy,
         )
@@ -92,7 +92,7 @@ def assess_risk(metric: FragilityMetric) -> RiskAssessment:
         add(
             "high",
             "allocation_pressure",
-            "Aloca��es concorrentes reduzem a cobertura abaixo da demanda.",
+            "Alocações concorrentes reduzem a cobertura abaixo da demanda.",
             threshold=metric.required_count,
             observed=effective_after_allocations,
         )
@@ -100,7 +100,7 @@ def assess_risk(metric: FragilityMetric) -> RiskAssessment:
         add(
             "medium",
             "qualification_expiry_pressure",
-            "Qualifica��es exigidas vencem antes da mobiliza��o.",
+            "Qualificações exigidas vencem antes da mobilização.",
             threshold=0,
             observed=metric.expiring_count,
         )
@@ -108,7 +108,7 @@ def assess_risk(metric: FragilityMetric) -> RiskAssessment:
         add(
             "medium",
             "training_without_viable_session",
-            "Pessoas trein�veis n�o possuem turma vi�vel antes da mobiliza��o.",
+            "Pessoas treináveis não possuem turma viável antes da mobilização.",
             threshold=0,
             observed=metric.missing_session_count,
         )

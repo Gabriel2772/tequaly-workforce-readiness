@@ -238,7 +238,7 @@ class ImportCommitService:
                         operation_id=operation.id,
                         role_demand_id=demand.id,
                         code=requirement_code,
-                        name=f"Qualifica��o obrigat�ria {qualification_code}",
+                        name=f"Qualificação obrigatória {qualification_code}",
                         requirement_type="qualification",
                         mandatory=True,
                         payload={"source": "canonical_import"},

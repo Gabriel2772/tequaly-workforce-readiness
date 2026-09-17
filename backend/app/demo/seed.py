@@ -120,9 +120,9 @@ def _upsert_rows(session: Session, table_like: FromClause, rows: list[Row]) -> N
 def seed_demo(session: Session, dataset: DemoDataset) -> SeedSummary:
     demo_id = partial(stable_demo_id, dataset.seed)
     demo_accounts = (
-        ("viewer.demo", "Leitor de demonstra��o", "viewer"),
-        ("planner.demo", "Planejador de demonstra��o", "planner"),
-        ("admin.demo", "Administrador de demonstra��o", "admin"),
+        ("viewer.demo", "Leitor de demonstração", "viewer"),
+        ("planner.demo", "Planejador de demonstração", "planner"),
+        ("admin.demo", "Administrador de demonstração", "admin"),
     )
     _upsert_rows(
         session,
@@ -375,7 +375,7 @@ def seed_demo(session: Session, dataset: DemoDataset) -> SeedSummary:
                 "issued_on": link.issued_on,
                 "expires_on": link.expires_on,
                 "workload_minutes": None,
-                "provider": "Provedor Sint�tico",
+                "provider": "Provedor Sintético",
                 "external_identifier": (
                     "DEMO-"
                     + demo_id(
@@ -383,7 +383,7 @@ def seed_demo(session: Session, dataset: DemoDataset) -> SeedSummary:
                         f"{link.employee_number}:{link.qualification_code}",
                     ).hex[:12]
                 ),
-                "notes": "Registro gerado exclusivamente para demonstra��o.",
+                "notes": "Registro gerado exclusivamente para demonstração.",
             }
             for link in dataset.employee_qualifications
         ],
@@ -423,7 +423,7 @@ def seed_demo(session: Session, dataset: DemoDataset) -> SeedSummary:
                     )
                 ],
                 "code": requirement.code,
-                "name": f"Qualifica��o obrigat�ria {requirement.qualification_code}",
+                "name": f"Qualificação obrigatória {requirement.qualification_code}",
                 "requirement_type": "qualification",
                 "mandatory": True,
                 "payload": {"source": "synthetic_demo"},
@@ -537,7 +537,7 @@ def seed_demo(session: Session, dataset: DemoDataset) -> SeedSummary:
                 "version": "v1",
                 "value": Decimal("30000"),
                 "rationale": (
-                    "Linha de base sint�tica para demonstra��o; n�o representa "
+                    "Linha de base sintética para demonstração; não representa "
                     "um valor validado pela Tequaly."
                 ),
             }

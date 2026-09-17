@@ -20,19 +20,19 @@ def test_operation_create_persists_demands_requirements_and_audit_atomically() -
     Base.metadata.create_all(engine)
     factory = sessionmaker(bind=engine, expire_on_commit=False)
     with Session(engine) as session:
-        family = workforce_models.RoleFamily(code="FAM-OPS", name="Fam�lia Opera��es", active=True)
+        family = workforce_models.RoleFamily(code="FAM-OPS", name="Família Operações", active=True)
         session.add(family)
         session.flush()
         primary_role = workforce_models.Role(
-            family_id=family.id, code="ROLE-OPS-1", name="Cargo Opera��o 1", active=True
+            family_id=family.id, code="ROLE-OPS-1", name="Cargo Operação 1", active=True
         )
         compatible_role = workforce_models.Role(
-            family_id=family.id, code="ROLE-OPS-2", name="Cargo Opera��o 2", active=True
+            family_id=family.id, code="ROLE-OPS-2", name="Cargo Operação 2", active=True
         )
         qualification = workforce_models.Qualification(
             code="QLF-OPS",
-            name="Qualifica��o Operacional",
-            category="seguran�a",
+            name="Qualificação Operacional",
+            category="segurança",
             active=True,
         )
         session.add_all((primary_role, compatible_role, qualification))
@@ -68,7 +68,7 @@ def test_operation_create_persists_demands_requirements_and_audit_atomically() -
                 "requirements": [
                     {
                         "code": "REQ-NR10",
-                        "name": "NR-10 v�lida at� o fim",
+                        "name": "NR-10 válida até o fim",
                         "requirement_type": "qualification",
                         "role_id": ids["primary_role"],
                         "qualification_ids": [ids["qualification"]],
